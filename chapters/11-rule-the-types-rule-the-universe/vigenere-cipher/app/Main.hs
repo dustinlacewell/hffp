@@ -11,21 +11,18 @@ nForChar c = ord c - ord 'a'
 
 mapWithIdx f = zipWith f [0..]
 
-encrypt :: Key -> String -> String
-encrypt k =
+crypt :: (Char -> Int) -> Key -> String -> String
+crypt nf k =
     mapWithIdx (\i c ->
-        let j = k !! (i `mod` keylen)
-            n = nForChar j
+        let j = k !! (i `mod` length k)
+            n = nf j
         in rotate n c)
-    where keylen = Prelude.length k
+
+encrypt :: Key -> String -> String
+encrypt = crypt nForChar
 
 decrypt :: Key -> String -> String
-decrypt k =
-    mapWithIdx (\i c ->
-        let j =  k !! (i `mod` keylen)
-            n = negate (nForChar j)
-        in rotate n c)
-    where keylen = Prelude.length k
+decrypt = crypt (negate . nForChar)
 
 main :: IO ()
 main =
