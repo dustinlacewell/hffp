@@ -8,5 +8,6 @@ in
       pkgs.haskell.packages.ghc8107.ghcide
       pkgs.haskell.packages.ghc8107.haskell-language-server
       pkgs.haskell.packages.ghc8107.hlint
+      pkgs.haskell.packages.ghc8107.doctest
     ];
   })
