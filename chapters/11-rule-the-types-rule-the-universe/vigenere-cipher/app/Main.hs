@@ -80,9 +80,9 @@ worker offsetFun (State key input output) =
         skipChar key input output
 
 -- | Process input until it's empty
-work f (State key input output)
-    | input == "" = State key input output
-    | otherwise = work f $ f (State key input output)
+work f s@(State key input output)
+    | input == "" = s
+    | otherwise = work f $ f s
 
 -- | Crypt a string using the given key
 crypt processor key input =
